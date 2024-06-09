@@ -1,4 +1,5 @@
-import React from "react";
+import googleBtn from "../assets/googleBtn.svg";
+import facebookLogo from "../assets/facebookLogo.png";
 
 const SocialAuthCard = () => {
   return (

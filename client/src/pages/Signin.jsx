@@ -1,9 +1,8 @@
 import { useState } from "react";
-import googleBtn from "../assets/googleBtn.svg";
-import facebookLogo from "../assets/facebookLogo.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SocialAuthCard from "../components/SocialAuthCard";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -137,20 +136,7 @@ const Signin = () => {
           </form>
         </div>
         <div className="w-1/3 bg-white/30 border border-white/40 rounded-lg py-4 px-8 flex flex-col items-center gap-2 backdrop-blur-xl">
-          <h3 className="font-titleFont pb-2 text-[18px]">Or Sign In With</h3>
-          <button className=" w-[225px]">
-            <img className="w-full" src={googleBtn} alt="googleSignInButton" />
-          </button>
-          <button className="border border-white/30 px-4 py-3  rounded-full bg-blue-700 flex flex-row gap-3 justify-center items-center ">
-            <img
-              src={facebookLogo}
-              alt="facebookLogo"
-              className="w-[25px] inline-block"
-            />
-            <span className="font-bodyFont text-[14px] font-medium">
-              Continue with Facebook
-            </span>
-          </button>
+          <SocialAuthCard />
         </div>
       </div>
     </div>
