@@ -1,25 +1,15 @@
 import { useState } from "react";
 import googleBtn from "../assets/googleBtn.svg";
 import facebookLogo from "../assets/facebookLogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
+    userEmail: "",
+    userPassword: "",
   });
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3000/api/user")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   const onChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -30,7 +20,11 @@ const Login = () => {
     axios
       .post("http://localhost:3000/api/user/login", userInfo)
       .then((res) => {
-        console.log(res.data);
+        setUserInfo({
+          userEmail: "",
+          userPassword: "",
+        });
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -72,11 +66,11 @@ const Login = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  name="userEmail"
                   id="email"
                   placeholder="email"
                   onChange={onChange}
-                  value={userInfo.email}
+                  value={userInfo.userEmail}
                   className="w-full border-2 rounded-md font-bodyFont p-2 text-black"
                 />
               </div>
@@ -89,11 +83,11 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
-                  name="password"
+                  name="userPassword"
                   id="password"
                   placeholder="password"
                   onChange={onChange}
-                  value={userInfo.password}
+                  value={userInfo.userPassword}
                   className="w-full border-2 rounded-md font-bodyFont p-2 text-black"
                 />
               </div>
