@@ -60,7 +60,7 @@ const Signin = () => {
               </h3>
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="userName"
                   className=" font-bodyFont font-medium text-white"
                 >
                   Name
@@ -76,7 +76,10 @@ const Signin = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email" className=" font-bodyFont font-medium ">
+                <label
+                  htmlFor="userEmail"
+                  className=" font-bodyFont font-medium "
+                >
                   Email
                 </label>
                 <input
@@ -91,7 +94,7 @@ const Signin = () => {
               </div>
               <div>
                 <label
-                  htmlFor="password"
+                  htmlFor="userPassword"
                   className=" font-bodyFont font-medium "
                 >
                   Password
@@ -108,7 +111,7 @@ const Signin = () => {
               </div>
               <div>
                 <label
-                  htmlFor="re-password"
+                  htmlFor="reEnterPassword"
                   className=" font-bodyFont font-medium "
                 >
                   Re-Enter Password
@@ -124,7 +127,7 @@ const Signin = () => {
                 />
               </div>
               <button
-                className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2"
+                className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2 font-bodyFont"
                 type="submit"
               >
                 Create

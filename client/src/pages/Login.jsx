@@ -93,7 +93,7 @@ const Login = () => {
               </div>
 
               <button
-                className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2"
+                className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2 font-bodyFont"
                 type="submit"
               >
                 Login

@@ -23,11 +23,11 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-        <button className="basis-1/5 border-[2px] border-secondaryColor hover:bg-secondaryColor rounded-full py-2 font-medium text-secondaryColor hover:text-white transition duration-300">
+        <button className="basis-1/5 border-[2px] border-secondaryColor hover:bg-secondaryColor rounded-full py-2 font-medium text-secondaryColor hover:text-white transition duration-300 font-bodyFont">
           Contact Us
         </button>
         <Link to="/Login" className="basis-1/5">
-          <button className="bg-gradient-to-r from-secondaryColor to-primaryColor rounded-full py-2 font-medium text-white hover:scale-105 transition duration-300 w-full">
+          <button className="bg-gradient-to-r from-secondaryColor to-primaryColor rounded-full py-2 font-medium text-white hover:scale-105 transition duration-300 w-full font-bodyFont">
             Login
           </button>
         </Link>
@@ -49,7 +49,7 @@ const LandingPage = () => {
           Efficiently.
         </h1>
         <Link to="/signin">
-          <button className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[20px] hover:scale-110 duration-300">
+          <button className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[20px] hover:scale-110 duration-300 font-bodyFont">
             Get Started for FREE <ArrowForwardIcon className="-mt-[6px]" />
           </button>
         </Link>
