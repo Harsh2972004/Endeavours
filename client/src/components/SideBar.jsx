@@ -1,5 +1,8 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import MenuIcon from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupsIcon from "@mui/icons-material/Groups";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import fblogo from "../assets/facebookLogo.png";
 import Modal from "./Modal";
@@ -37,7 +40,7 @@ const SideBar = () => {
             href=""
             className="w-[250px] flex items-center gap-5 bg-gradient-to-r from-secondaryColor to-primaryColor px-6 py-2 rounded-xl"
           >
-            <StarOutlineIcon fontSize="medium" />{" "}
+            <PersonIcon fontSize="medium" />{" "}
             <span className="font-bodyFont text-[16px] border-l pl-5">
               Personal List
             </span>
@@ -46,26 +49,28 @@ const SideBar = () => {
             href=""
             className="w-[250px] flex items-center gap-5 bg-gradient-to-r from-secondaryColor to-primaryColor px-6 py-2 rounded-xl"
           >
-            <StarOutlineIcon fontSize="medium" />{" "}
+            <GroupsIcon fontSize="medium" />{" "}
             <span className="font-bodyFont text-[16px] border-l pl-5">
               Group List
             </span>
           </a>
         </div>
-        <div
-          onClick={() => setOpen(true)}
-          className=" border-t h-[100px] py-4 hover:cursor-pointer"
-        >
-          <div className="flex gap-4 items-center">
-            <img src={fblogo} alt="profilePic" className="w-[40px] h-[40px]" />
-            <div>
-              <h1>username</h1>
-              <p>
-                email{" "}
-                <span>
-                  <KeyboardArrowDownIcon />
-                </span>
-              </p>
+        <div className="border-t pt-4">
+          <div
+            onClick={() => setOpen(true)}
+            className=" bg-gradient-to-tr from-primaryColor to-secondaryColor p-4 rounded-xl hover:cursor-pointer"
+          >
+            <div className="flex gap-4 items-center">
+              <AccountCircleIcon style={{ fontSize: "40px" }} />
+              <div className="font-bodyFont">
+                <h1>username</h1>
+                <p>
+                  email{" "}
+                  <span>
+                    <KeyboardArrowDownIcon />
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

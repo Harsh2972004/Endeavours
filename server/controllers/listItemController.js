@@ -32,6 +32,19 @@ const getListItem = async (req, res) => {
 // create a list item
 const createListItem = async (req, res) => {
   const { title, listBody } = req.body;
+  let emptyFields = [];
+
+  if (!title) {
+    emptyFields.push("title");
+  }
+  if (!listBody) {
+    emptyFields.push("body");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
+  }
 
   //   add doc to db
   try {
