@@ -3,44 +3,22 @@ const User = require("../models/usersModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.JWTSECRET, { expiresIn: "3d" });
+};
+
 // register controller
 const register = async (req, res) => {
   const { userName, userEmail, userPassword } = req.body;
   try {
-    // check all required data
-    if (!(userName && userEmail && userPassword)) {
-      return res.status(400).json({ feilds: "All fields required." });
-    }
-
-    // check if user exsits
-    const exsitingUser = await User.findOne({ userEmail });
-    if (exsitingUser) {
-      return res
-        .status(401)
-        .json({ exsitingUser: "User already exsists with this email." });
-    }
-
-    // encrypt password
-    const hashedPassword = await bcrypt.hash(userPassword, 10);
-
-    // save user in database
-    const user = await User.create({
-      userName,
-      userEmail,
-      userPassword: hashedPassword,
-    });
+    const user = await User.register(userName, userEmail, userPassword);
 
     // generate token for user and send it
-    const token = jwt.sign({ id: user._id }, process.env.JWTSECRET, {
-      expiresIn: "2h",
-    });
+    const token = createToken(user._id);
 
-    user.token = token;
-    user.password = undefined;
-
-    res.status(201).json(user);
+    res.status(200).json({ userEmail, token });
   } catch (error) {
-    res.status(402).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -48,38 +26,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { userEmail, userPassword } = req.body;
   try {
-    // validation
-    if (!(userEmail && userPassword)) {
-      return res.status(400).json({ fields: "all fields required" });
-    }
+    const user = await User.login(userEmail, userPassword);
 
-    // find user in database
-    const user = await User.findOne({ userEmail });
+    // generate token for user and send it
+    const token = createToken(user._id);
 
-    // user doesnt exist
-    if (!user) {
-      return res.status(401).json({ user: "user doesn't exist" });
-    }
-
-    // match the password
-    if (user && (await bcrypt.compare(userPassword, user.userPassword))) {
-      // generate token
-      const token = jwt.sign({ id: user._id }, process.env.JWTSECRET, {
-        expiresIn: "2h",
-      });
-
-      user.token = token;
-      user.password = undefined;
-
-      // send token
-      // cookie Session
-      const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-      };
-
-      res.status(200).cookie("token", token, options).json(user);
-    }
+    res.status(200).json({ userEmail, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
