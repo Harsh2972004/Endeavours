@@ -3,6 +3,7 @@ import googleBtn from "../assets/googleBtn.svg";
 import facebookLogo from "../assets/facebookLogo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { uselogin } from "../hooks/useLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,25 +11,15 @@ const Login = () => {
     userEmail: "",
     userPassword: "",
   });
+  const { login, error, isLoading } = uselogin();
 
   const onChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3000/api/user/login", userInfo)
-      .then((res) => {
-        setUserInfo({
-          userEmail: "",
-          userPassword: "",
-        });
-        navigate("/home");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await login(userInfo);
   };
 
   return (
@@ -95,9 +86,15 @@ const Login = () => {
               <button
                 className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2 font-bodyFont"
                 type="submit"
+                disabled={isLoading}
               >
                 Login
               </button>
+              {error && (
+                <div className=" flex justify-center items-center mx-auto p-1 bg-red-600  rounded-lg w-[300px]">
+                  <p>{error.error}</p>
+                </div>
+              )}
               <Link to="/signin" className=" text-center underline">
                 <p>Don't have an account? Create one</p>
               </Link>

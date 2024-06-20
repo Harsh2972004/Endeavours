@@ -4,12 +4,17 @@ import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import fblogo from "../assets/facebookLogo.png";
 import Modal from "./Modal";
 import { useState } from "react";
+import { useLogout } from "../hooks/useLogout";
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
+  const { logout } = useLogout();
+  const handleLogoutClick = () => {
+    logout();
+    setOpen(false);
+  };
 
   return (
     <div className=" p-8 basis-[350px] flex flex-col gap-10 items-center">
@@ -79,7 +84,10 @@ const SideBar = () => {
             <h1 className="font-bodyFont mb-4 text-[20px]">
               You want to logout your account.
             </h1>
-            <button className="bg-red-600 text-white rounded-xl px-20 py-3 text-[16px] mt-2 font-bodyFont">
+            <button
+              onClick={handleLogoutClick}
+              className="bg-red-600 text-white rounded-xl px-20 py-3 text-[16px] mt-2 font-bodyFont"
+            >
               logout
             </button>
           </div>

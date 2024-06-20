@@ -16,7 +16,7 @@ const register = async (req, res) => {
     // generate token for user and send it
     const token = createToken(user._id);
 
-    res.status(200).json({ userEmail, token });
+    res.status(200).json({ userName, userEmail, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -27,11 +27,11 @@ const login = async (req, res) => {
   const { userEmail, userPassword } = req.body;
   try {
     const user = await User.login(userEmail, userPassword);
-
+    const foundUserName = user.userName;
     // generate token for user and send it
     const token = createToken(user._id);
 
-    res.status(200).json({ userEmail, token });
+    res.status(200).json({ foundUserName, userEmail, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

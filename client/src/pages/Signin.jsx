@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SocialAuthCard from "../components/SocialAuthCard";
+import { useSignup } from "../hooks/useSignup";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -10,29 +11,17 @@ const Signin = () => {
     userName: "",
     userEmail: "",
     userPassword: "",
-    reEnterPassword: "",
   });
+  const { signup, isLoading, error } = useSignup();
 
   const onChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3000/api/user/register", userInfo)
-      .then((res) => {
-        setUserInfo({
-          userName: "",
-          userEmail: "",
-          userPassword: "",
-          reEnterPassword: "",
-        });
-        navigate("/home");
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+
+    await signup(userInfo);
   };
 
   return (
@@ -49,11 +38,7 @@ const Signin = () => {
         <div className="w-[400px] h-[400px] bg-secondaryColor absolute rounded-full -top-48 -left-28"></div>
         <div className="w-[250px] h-[250px] bg-primaryColor absolute rounded-full left-[600px] -bottom-20"></div>
         <div className="w-1/2 flex flex-col items-center bg-white/30 py-10 rounded-lg backdrop-blur-lg border border-white/40 z-20">
-          <form
-            className="w-full flex justify-center"
-            noValidate
-            onSubmit={onSubmit}
-          >
+          <form className="w-full flex justify-center" onSubmit={onSubmit}>
             <div className=" w-2/3 flex flex-col justify-center gap-4">
               <h3 className="font-titleFont font-medium text-[24px] ">
                 Create Account
@@ -109,29 +94,18 @@ const Signin = () => {
                   className="w-full border-2 rounded-md font-bodyFont p-2 text-black"
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="reEnterPassword"
-                  className=" font-bodyFont font-medium "
-                >
-                  Re-Enter Password
-                </label>
-                <input
-                  type="password"
-                  name="reEnterPassword"
-                  id="reEnterPassword"
-                  placeholder="re-enter password"
-                  onChange={onChange}
-                  value={userInfo.reEnterPassword}
-                  className="w-full border-2 rounded-md font-bodyFont p-2 text-black"
-                />
-              </div>
               <button
                 className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2 font-bodyFont"
                 type="submit"
+                disabled={isLoading}
               >
                 Create
               </button>
+              {error && (
+                <div className=" flex justify-center items-center mx-auto p-1 bg-red-600  rounded-lg w-[300px]">
+                  <p>{error.error}</p>
+                </div>
+              )}
               <Link to="/login" className=" text-center underline">
                 <p>Already have an account? Login Here</p>
               </Link>
