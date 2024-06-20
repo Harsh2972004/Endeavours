@@ -24,7 +24,7 @@ const UserCard = () => {
           <div className="flex gap-4 items-center">
             <AccountCircleIcon style={{ fontSize: "40px" }} />
             <div className="font-bodyFont">
-              <h1>{user ? user.userName : "User"}</h1>
+              <h1>{user ? user.foundUserName : "User"}</h1>
               <p>
                 {user ? user.userEmail : "Email"}{" "}
                 <span>
