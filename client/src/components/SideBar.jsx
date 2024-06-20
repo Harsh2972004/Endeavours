@@ -2,20 +2,9 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Modal from "./Modal";
-import { useState } from "react";
-import { useLogout } from "../hooks/useLogout";
+import UserCard from "./UserCard";
 
 const SideBar = () => {
-  const [open, setOpen] = useState(false);
-  const { logout } = useLogout();
-  const handleLogoutClick = () => {
-    logout();
-    setOpen(false);
-  };
-
   return (
     <div className=" p-8 basis-[350px] flex flex-col gap-10 items-center">
       <div className="flex items-center justify-between w-full border-b">
@@ -60,38 +49,7 @@ const SideBar = () => {
             </span>
           </a>
         </div>
-        <div className="border-t pt-4">
-          <div
-            onClick={() => setOpen(true)}
-            className=" bg-gradient-to-tr from-primaryColor to-secondaryColor p-4 rounded-xl hover:cursor-pointer"
-          >
-            <div className="flex gap-4 items-center">
-              <AccountCircleIcon style={{ fontSize: "40px" }} />
-              <div className="font-bodyFont">
-                <h1>username</h1>
-                <p>
-                  email{" "}
-                  <span>
-                    <KeyboardArrowDownIcon />
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <div className="text-center w-[400px] p-4">
-            <h1 className="font-bodyFont mb-4 text-[20px]">
-              You want to logout your account.
-            </h1>
-            <button
-              onClick={handleLogoutClick}
-              className="bg-red-600 text-white rounded-xl px-20 py-3 text-[16px] mt-2 font-bodyFont"
-            >
-              logout
-            </button>
-          </div>
-        </Modal>
+        <UserCard />
       </div>
     </div>
   );
