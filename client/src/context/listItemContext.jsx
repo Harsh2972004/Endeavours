@@ -3,6 +3,10 @@ import { createContext, useReducer } from "react";
 export const ListItemContext = createContext();
 
 export const listItemReducer = (state, action) => {
+  //   const updateList = () => {
+  // const foundIndex =
+  //   }
+
   switch (action.type) {
     case "SET_LIST":
       return {
@@ -18,14 +22,17 @@ export const listItemReducer = (state, action) => {
       };
     case "UPDATE_LIST_ITEM":
       return {
-        // updatedList:
-        //   state.list &&
-        //   state.list.map((l) =>
-        //     l._id === action.payload._id ? action.payload : l
-        //   ),
-        list: state.list.map((l) =>
-          l._id === action.payload._id ? action.payload : l
-        ),
+        list: state.list.map((l) => {
+          if (l._id === action.payload._id) {
+            return {
+              ...l,
+              title: action.payload.title,
+              listBody: action.payload.listBody,
+            };
+          } else {
+            return l;
+          }
+        }),
       };
     default:
       return state;

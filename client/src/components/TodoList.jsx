@@ -70,7 +70,7 @@ const TodoList = () => {
     if (user) {
       fetchList();
     }
-  }, [list, user]);
+  }, [dispatch, user]);
 
   return (
     <div className=" border-l-4 border-black/30 h-[full] w-full p-6 relative  overflow-y-auto scroll-smooth">

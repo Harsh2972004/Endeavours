@@ -2,8 +2,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useListItemContext } from "../hooks/useListItemContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import Modal from "./Modal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
@@ -13,8 +14,8 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
   const { dispatch } = useListItemContext();
   const { user } = useAuthContext();
   const [listItem, setListItem] = useState({
-    title: "",
-    listBody: "",
+    title,
+    listBody: body,
   });
 
   const onChange = (e) => {
@@ -35,18 +36,12 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
         },
       })
       .then((res) => {
-        setListItem({
-          title: "",
-          listBody: "",
-        });
+        dispatch({ type: "UPDATE_LIST_ITEM", payload: res.data });
         setOpenEdit(false);
         console.log("task Edited successfully", res.status, res.data);
-
-        dispatch({ type: "UPDATE_LIST_ITEM", payload: res.data });
       })
       .catch((err) => {
         console.log("Cant edit task", err.response.data);
-        // setError([err.response.data]);
       });
   };
 
@@ -135,21 +130,10 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
                 onClick={onSubmit}
                 className="bg-gradient-to-r from-secondaryColor to-primaryColor text-white rounded-full px-10 py-3 text-[18px] mt-2 font-bodyFont "
               >
-                Add Task
+                Edit Task
               </button>
             </div>
           </form>
-          {/* {error &&
-            error.map((e, i) => {
-              return (
-                <div
-                  className="text-center mt-4 text-red-500 font-bodyFont font-semibold"
-                  key={i}
-                >
-                  <p>{e.error}</p>
-                </div>
-              );
-            })} */}
         </div>
       </Modal>
       {/* Delete modal */}

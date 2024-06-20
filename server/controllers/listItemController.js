@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 // get all list items
 const getListItems = async (req, res) => {
   try {
-    const listItems = await ListItem.find({}).sort({ createdAt: -1 });
+    const user_id = req.user._id;
+    const listItems = await ListItem.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(listItems);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -48,7 +49,8 @@ const createListItem = async (req, res) => {
 
   //   add doc to db
   try {
-    const listItem = await ListItem.create({ title, listBody });
+    const user_id = req.user._id;
+    const listItem = await ListItem.create({ title, listBody, user_id });
     res.status(200).json(listItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -93,8 +95,8 @@ const updateListItem = async (req, res) => {
     if (!listItem) {
       return res.status(404).json({ error: "no such list item" });
     }
-
-    res.status(200).json(listItem);
+    const updatedListItem = await ListItem.findOne({ _id: listItem._id });
+    res.status(200).json(updatedListItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
