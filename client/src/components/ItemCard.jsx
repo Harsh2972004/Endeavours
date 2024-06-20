@@ -1,6 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useListItemContext } from "../hooks/useListItemContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -10,6 +11,7 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const { dispatch } = useListItemContext();
+  const { user } = useAuthContext();
   const [listItem, setListItem] = useState({
     title: "",
     listBody: "",
@@ -21,8 +23,17 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (!user) {
+      return;
+    }
+
     axios
-      .patch("http://localhost:3000/api/list/" + listId, listItem)
+      .patch("http://localhost:3000/api/list/" + listId, listItem, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setListItem({
           title: "",
@@ -40,15 +51,22 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
   };
 
   const onDeleteClick = () => {
+    if (!user) {
+      return;
+    }
     axios
-      .delete("http://localhost:3000/api/list/" + listId)
+      .delete("http://localhost:3000/api/list/" + listId, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setOpenDelete(false);
         console.log("Task deleted", res.status, res.data);
         dispatch({ type: "DELETE_LIST_ITEM", payload: res.data });
       })
       .catch((err) => {
-        console.log("Error form errorFromDeleteTask_deleteClick");
+        console.log("cant delete item", err.response.data);
       });
   };
 

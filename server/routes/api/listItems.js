@@ -6,8 +6,11 @@ const {
   deleteListItem,
   updateListItem,
 } = require("../../controllers/listItemController");
+const requireAuth = require("../../middleware/requireAuth");
 
 const router = express.Router();
+
+router.use(requireAuth);
 
 //@route GET api/list
 // @desc get all list items

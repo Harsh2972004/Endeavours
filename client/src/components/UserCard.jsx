@@ -19,7 +19,7 @@ const UserCard = () => {
       <div className="border-t pt-4">
         <div
           onClick={() => setOpen(true)}
-          className=" bg-gradient-to-tr from-primaryColor to-secondaryColor p-4 rounded-xl hover:cursor-pointer"
+          className=" bg-gradient-to-tr from-primaryColor to-secondaryColor p-4 rounded-xl hover:scale-95 cursor-pointer transition-all"
         >
           <div className="flex gap-4 items-center">
             <AccountCircleIcon style={{ fontSize: "40px" }} />

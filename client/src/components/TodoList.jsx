@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useListItemContext } from "../hooks/useListItemContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import Modal from "./Modal";
 import ItemCard from "./ItemCard";
 import axios from "axios";
 
 const TodoList = () => {
   const { list, dispatch } = useListItemContext();
+  const { user } = useAuthContext();
   const [open, setOpen] = useState(false);
   const [listItem, setListItem] = useState({
     title: "",
@@ -20,8 +22,18 @@ const TodoList = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setError("unauthorized request");
+      return;
+    }
+
     axios
-      .post("http://localhost:3000/api/list", listItem)
+      .post("http://localhost:3000/api/list", listItem, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setListItem({
           title: "",
@@ -41,15 +53,24 @@ const TodoList = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/list")
-      .then((res) => {
-        dispatch({ type: "SET_LIST", payload: res.data });
-      })
-      .catch((err) => {
-        console.log("Error from task list");
-      });
-  }, [list]);
+    const fetchList = () => {
+      axios
+        .get("http://localhost:3000/api/list", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((res) => {
+          dispatch({ type: "SET_LIST", payload: res.data });
+        })
+        .catch((err) => {
+          console.log("Error from task list");
+        });
+    };
+    if (user) {
+      fetchList();
+    }
+  }, [list, user]);
 
   return (
     <div className=" border-l-4 border-black/30 h-[full] w-full p-6 relative  overflow-y-auto scroll-smooth">
