@@ -10,6 +10,11 @@ const listItemsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      enum: ["personal", "group", "priority"],
+      default: "personal", // Default category if not specified
+    },
     user_id: {
       type: String,
       required: true,

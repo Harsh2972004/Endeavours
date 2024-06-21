@@ -95,7 +95,7 @@ const EditComponent = ({ itemTitle, itemBody, _id }) => {
                 onChange={onChange}
                 name="listBody"
                 id="name"
-                className={`border-2 rounded-lg text-[#121321] p-2 `}
+                className={`border-2 rounded-lg text-[#121321] p-2 h-[200px]`}
                 value={listItem.listBody}
               ></textarea>
             </div>

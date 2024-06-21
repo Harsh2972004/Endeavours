@@ -36,7 +36,7 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
           onClick={() => setOpen(true)}
           className="bg-white/20 rounded-lg p-1 hover:scale-105 transition-all"
         >
-          <OpenInFullIcon style={{ fontSize: "26px" }} />
+          <OpenInFullIcon style={{ fontSize: "24px" }} />
         </button>
         <ViewItemCard
           _id={listId}

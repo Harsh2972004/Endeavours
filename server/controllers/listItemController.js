@@ -32,7 +32,7 @@ const getListItem = async (req, res) => {
 
 // create a list item
 const createListItem = async (req, res) => {
-  const { title, listBody } = req.body;
+  const { title, listBody, category } = req.body;
   let emptyFields = [];
 
   if (!title) {

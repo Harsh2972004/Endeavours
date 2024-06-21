@@ -41,31 +41,33 @@ const ViewItemCard = ({ open, _id, handleClick }) => {
   return (
     <div>
       <Modal open={open} onClose={handleClick}>
-        <div className="w-[800px] h-[400px] text-center p-4">
+        <div className="w-[800px] h-[400px] p-4 overflow-y-auto no-scrollbar">
           <div>
             <h1 className="font-bodyFont font-bold text-[23px] border-b-2 mb-2">
               {item && item.title}
             </h1>
-            <div className=" overflow-y-auto">
-              <p className=" font-bodyFont text-[16px]">
+            <div>
+              <p className=" font-bodyFont text-[16px] text-justify whitespace-pre-wrap">
                 {item && item.listBody}
               </p>
             </div>
           </div>
+        </div>
+        <div className="relative h-[50px] flex items-center mt-2">
           <p className="text-gray-300 text-[13px]">
             {item &&
               formatDistanceToNow(new Date(item.createdAt), {
                 addSuffix: true,
               })}
           </p>
-        </div>
-        <div className="absolute flex bottom-4 right-4 ">
-          <EditComponent
-            itemTitle={item && item.title}
-            itemBody={item && item.listBody}
-            _id={item && item._id}
-          />
-          <DeleteComponent _id={item && item._id} />
+          <div className="absolute flex right-4 ">
+            <EditComponent
+              itemTitle={item && item.title}
+              itemBody={item && item.listBody}
+              _id={item && item._id}
+            />
+            <DeleteComponent _id={item && item._id} />
+          </div>
         </div>
       </Modal>
     </div>
