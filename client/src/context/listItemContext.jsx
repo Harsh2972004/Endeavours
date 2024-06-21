@@ -3,10 +3,6 @@ import { createContext, useReducer } from "react";
 export const ListItemContext = createContext();
 
 export const listItemReducer = (state, action) => {
-  //   const updateList = () => {
-  // const foundIndex =
-  //   }
-
   switch (action.type) {
     case "SET_LIST":
       return {
