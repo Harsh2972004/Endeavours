@@ -5,13 +5,14 @@ import Modal from "./Modal";
 import ItemCard from "./ItemCard";
 import axios from "axios";
 
-const TodoList = () => {
+const TodoList = ({ selectedCategory }) => {
   const { list, dispatch } = useListItemContext();
   const { user } = useAuthContext();
   const [open, setOpen] = useState(false);
   const [listItem, setListItem] = useState({
     title: "",
     listBody: "",
+    category: "personal",
   });
   const [error, setError] = useState([]);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -51,17 +52,17 @@ const TodoList = () => {
         setEmptyFields(err.response.data.emptyFields);
       });
   };
-
   useEffect(() => {
     const fetchList = () => {
       axios
-        .get("http://localhost:3000/api/list", {
+        .get("http://localhost:3000/api/list/category/" + selectedCategory, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         })
         .then((res) => {
           dispatch({ type: "SET_LIST", payload: res.data });
+          console.log(res.data);
         })
         .catch((err) => {
           console.log("Error from task list");
@@ -70,23 +71,39 @@ const TodoList = () => {
     if (user) {
       fetchList();
     }
-  }, [dispatch, user]);
+  }, [user, selectedCategory]);
 
   return (
-    <div className=" border-l-4 border-black/30 h-[full] w-full p-6 relative  overflow-y-auto scroll-smooth">
-      <div className="grid grid-cols-3 gap-6">
-        {list?.map((l, i) => {
-          return (
-            <ItemCard
-              key={i}
-              oddEvenCheck={i}
-              title={l.title}
-              body={l.listBody}
-              listId={l._id}
-              date={l.createdAt}
-            />
-          );
-        })}
+    <div className=" border-l-4 border-black/30 h-[full] w-full p-6 relative  overflow-y-auto scroll-smooth no-scrollbar">
+      <h1 className="font-bodyFont text-[30px] border-b-2 mb-9 pb-4">
+        {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}{" "}
+        Tasks
+      </h1>
+      <div
+        className={
+          list?.length === 0
+            ? "flex items-center justify-center"
+            : "grid grid-cols-3 gap-6"
+        }
+      >
+        {list?.length === 0 ? (
+          <div>
+            <p className="text-[20px]">There is no tasks in this list</p>
+          </div>
+        ) : (
+          list?.map((l, i) => {
+            return (
+              <ItemCard
+                key={l._id}
+                oddEvenCheck={i}
+                title={l.title}
+                body={l.listBody}
+                listId={l._id}
+                date={l.createdAt}
+              />
+            );
+          })
+        )}
       </div>
       <button
         onClick={() => setOpen(true)}
@@ -110,7 +127,8 @@ const TodoList = () => {
                 onChange={onChange}
                 type="text"
                 name="title"
-                className={`border-2 rounded-lg text-[#121321] p-2 ${
+                id="title"
+                className={`border-2 rounded-lg text-[#121321] p-2 font-bodyFont ${
                   emptyFields.includes("title") ? "border-red-500" : ""
                 }`}
                 value={listItem.title}
@@ -123,12 +141,26 @@ const TodoList = () => {
               <textarea
                 onChange={onChange}
                 name="listBody"
-                id="name"
-                className={`border-2 rounded-lg text-[#121321] p-2 ${
+                id="body"
+                className={`border-2 rounded-lg text-[#121321] p-2 font-bodyFont ${
                   emptyFields.includes("body") ? "border-red-500" : ""
                 }`}
                 value={listItem.listBody}
               ></textarea>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="category"></label>
+              <select
+                name="category"
+                id="category"
+                value={listItem.category}
+                onChange={onChange}
+                className="border-2 rounded-lg text-[#121321] p-2 font-bodyFont"
+              >
+                <option value="personal">Personal</option>
+                <option value="group">Group</option>
+                <option value="priority">Priority</option>
+              </select>
             </div>
             <div className="text-center">
               <button

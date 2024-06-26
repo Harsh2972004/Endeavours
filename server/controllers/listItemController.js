@@ -3,9 +3,23 @@ const mongoose = require("mongoose");
 
 // get all list items
 const getListItems = async (req, res) => {
+  const user_id = req.user._id;
   try {
-    const user_id = req.user._id;
     const listItems = await ListItem.find({ user_id }).sort({ createdAt: -1 });
+    res.status(200).json(listItems);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+//get all list items in specific category
+const getCategoryListItems = async (req, res) => {
+  const { category } = req.params;
+  const user_id = req.user._id;
+  try {
+    const listItems = await ListItem.find({ user_id, category }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(listItems);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -15,11 +29,12 @@ const getListItems = async (req, res) => {
 // get a single list item
 const getListItem = async (req, res) => {
   const { id } = req.params;
+
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).json({ error: "no such list item found" });
     }
-    const listItem = await ListItem.findById(id);
+    const listItem = await ListItem.findById(id).exec();
 
     if (!listItem) {
       return res.status(404).json({ error: "no such list item" });
@@ -50,7 +65,12 @@ const createListItem = async (req, res) => {
   //   add doc to db
   try {
     const user_id = req.user._id;
-    const listItem = await ListItem.create({ title, listBody, user_id });
+    const listItem = await ListItem.create({
+      title,
+      listBody,
+      user_id,
+      category,
+    });
     res.status(200).json(listItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -104,6 +124,7 @@ const updateListItem = async (req, res) => {
 
 module.exports = {
   getListItems,
+  getCategoryListItems,
   getListItem,
   createListItem,
   deleteListItem,

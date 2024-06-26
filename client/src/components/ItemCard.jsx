@@ -8,7 +8,6 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
   const { openEdit } = useViewContext();
   const [open, setOpen] = useState(false);
   const slicedBody = body.slice(0, 100);
-  console.log(slicedBody);
 
   useEffect(() => {
     if (!openEdit.open && openEdit.changed) {
@@ -42,6 +41,7 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
           _id={listId}
           open={open}
           handleClick={() => setOpen(false)}
+          date={date}
         />
       </div>
     </div>

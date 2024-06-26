@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   getListItems,
+  getCategoryListItems,
   getListItem,
   createListItem,
   deleteListItem,
@@ -15,6 +16,10 @@ router.use(requireAuth);
 //@route GET api/list
 // @desc get all list items
 router.get("/", getListItems);
+
+//@route GET api/list/:category
+// @desc get all list items
+router.get("/category/:category", getCategoryListItems);
 
 //@route GET api/list-item
 // @desc get a single list items

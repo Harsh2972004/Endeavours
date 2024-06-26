@@ -6,8 +6,8 @@ import EditComponent from "./EditComponent";
 import DeleteComponent from "./DeleteComponent";
 import axios from "axios";
 
-const ViewItemCard = ({ open, _id, handleClick }) => {
-  const [item, setItem] = useState();
+const ViewItemCard = ({ open, _id, handleClick, date }) => {
+  const [item, setItem] = useState({});
   const { user } = useAuthContext();
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const ViewItemCard = ({ open, _id, handleClick }) => {
           },
         })
         .then((res) => {
-          setItem(res.data);
+          setItem({ ...res.data });
 
-          console.log(res.data, item === res.data);
+          console.log(res.data, item);
         })
         .catch((error) => {
           console.log("Error fetching item", error.message);
@@ -41,11 +41,17 @@ const ViewItemCard = ({ open, _id, handleClick }) => {
   return (
     <div>
       <Modal open={open} onClose={handleClick}>
-        <div className="w-[800px] h-[400px] p-4 overflow-y-auto no-scrollbar">
+        <div className="w-[800px] h-[400px] p-6 overflow-y-auto no-scrollbar ">
           <div>
-            <h1 className="font-bodyFont font-bold text-[23px] border-b-2 mb-2">
-              {item && item.title}
-            </h1>
+            <div className="border-b-2 mb-2 flex justify-between items-center">
+              <h1 className="font-bodyFont font-bold text-[23px]">
+                {item && item.title}
+              </h1>
+              <p className="text-gray-300 text-[13px] font-bodyFont">
+                category:{" "}
+                <span className="text-white">{item && item.category}</span>
+              </p>
+            </div>
             <div>
               <p className=" font-bodyFont text-[16px] text-justify whitespace-pre-wrap">
                 {item && item.listBody}
@@ -54,9 +60,9 @@ const ViewItemCard = ({ open, _id, handleClick }) => {
           </div>
         </div>
         <div className="relative h-[50px] flex items-center mt-2">
-          <p className="text-gray-300 text-[13px]">
+          <p className="text-gray-300 text-[13px] font-bodyFont">
             {item &&
-              formatDistanceToNow(new Date(item.createdAt), {
+              formatDistanceToNow(new Date(date), {
                 addSuffix: true,
               })}
           </p>
