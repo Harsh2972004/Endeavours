@@ -41,7 +41,7 @@ const ViewItemCard = ({ open, _id, handleClick, date }) => {
   return (
     <div>
       <Modal open={open} onClose={handleClick}>
-        <div className="w-[800px] h-[400px] p-6 overflow-y-auto no-scrollbar ">
+        <div className="w-[800px] h-[400px] p-6 overflow-y-auto no-scrollbar">
           <div>
             <div className="border-b-2 mb-2 flex justify-between items-center">
               <h1 className="font-bodyFont font-bold text-[23px]">
@@ -49,7 +49,9 @@ const ViewItemCard = ({ open, _id, handleClick, date }) => {
               </h1>
               <p className="text-gray-300 text-[13px] font-bodyFont">
                 category:{" "}
-                <span className="text-white">{item && item.category}</span>
+                <span className="text-white font-semibold">
+                  {item && item.category}
+                </span>
               </p>
             </div>
             <div>

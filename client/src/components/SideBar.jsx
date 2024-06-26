@@ -24,22 +24,27 @@ const SideBar = ({ handleCategoryClick }) => {
         collapsed ? "w-[80px] justify-between" : "w-[350px]"
       } flex flex-col gap-10 items-center relative transition-all duration-500`}
     >
-      <div className="flex items-center justify-between w-full border-b">
+      <div className="flex items-center justify-between w-full border-b-2 border-black dark:border-white">
         <div
           className={`cursor-pointer text-center transition-all duration-100 ${
             collapsed ? " hidden" : ""
           }`}
         >
-          <h3 className=" font-titleFont text-[28px] font-medium text-white">
+          <h3 className=" font-titleFont text-[28px] font-medium text-black dark:text-white">
             Endea
-            <span className="text-secondaryColor">vours</span>
+            <span className="text-primaryColor dark:text-secondaryColor">
+              vours
+            </span>
           </h3>
-          <p className=" font-bodyFont -mt-3 text-[15px] font-light">
+          <p className=" text-black dark:text-white font-bodyFont -mt-3 text-[15px] dark:font-light">
             focus-prioritize-execute.
           </p>
         </div>
         <div onClick={toggleSideBar}>
-          <MenuIcon fontSize="large" className="mt-1 cursor-pointer" />
+          <MenuIcon
+            fontSize="large"
+            className="mt-1 cursor-pointe text-black dark:text-white"
+          />
         </div>
       </div>
       <div

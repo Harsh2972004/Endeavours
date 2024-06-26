@@ -17,7 +17,7 @@ const ItemCard = ({ oddEvenCheck, title, body, listId, date }) => {
 
   return (
     <div
-      className={`h-[200px] border border-white/40 rounded-2xl px-3 py-6 font-bodyFont relative flex flex-col justify-between ${
+      className={`h-[200px] border border-black/40 dark:border-white/40 rounded-2xl px-3 py-6 font-bodyFont relative flex flex-col justify-between ${
         oddEvenCheck % 2 === 0 ? "bg-primaryColor" : "bg-secondaryColor"
       }`}
     >

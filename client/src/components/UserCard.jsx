@@ -16,7 +16,7 @@ const UserCard = () => {
   };
   return (
     <div>
-      <div className="border-t pt-4">
+      <div className="border-t-2 border-black dark:border-white pt-4">
         <div
           onClick={() => setOpen(true)}
           className=" bg-gradient-to-tr from-primaryColor to-secondaryColor p-4 rounded-xl hover:scale-95 cursor-pointer transition-all"

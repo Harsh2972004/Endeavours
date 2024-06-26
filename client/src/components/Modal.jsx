@@ -12,13 +12,13 @@ const Modal = ({ open, onClose, children }) => {
       {/* modal */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-[#121321] shadow rounded-xl p-6 transition-all ${
+        className={`bg-gradient-to-r from-primaryColor to-secondaryColor dark:bg-gradient-to-r dark:from-[#121321] dark:to-[#121321] shadow rounded-xl p-6 transition-all ${
           open ? "scale-100 opacity-100" : "scale-125 opacity-0"
         }`}
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 p-1 rounded-lg  bg-white/20 hover:scale-105 transition-all"
+          className="absolute top-2 right-2 p-1 rounded-lg text-white bg-white/20 hover:scale-105 transition-all"
         >
           <Close />
         </button>
