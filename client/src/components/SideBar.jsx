@@ -20,11 +20,15 @@ const SideBar = ({ handleCategoryClick }) => {
 
   return (
     <div
-      className={` p-8 ${
-        collapsed ? "w-[80px] justify-between" : "w-[350px]"
+      className={`${
+        collapsed ? "w-[80px] justify-between py-8 px-2" : "w-[350px] p-8"
       } flex flex-col gap-10 items-center relative transition-all duration-500`}
     >
-      <div className="flex items-center justify-between w-full border-b-2 border-primaryColor dark:border-white">
+      <div
+        className={`flex items-center border-b-2 w-full ${
+          collapsed ? "justify-center" : "justify-between"
+        } border-primaryColor dark:border-white`}
+      >
         <div
           className={`cursor-pointer text-center transition-all duration-100 ${
             collapsed ? " hidden" : ""
@@ -40,17 +44,15 @@ const SideBar = ({ handleCategoryClick }) => {
             focus-prioritize-execute.
           </p>
         </div>
-        <div onClick={toggleSideBar}>
+        <div onClick={toggleSideBar} className="w-8">
           <MenuIcon
-            fontSize="large"
+            style={{ fontSize: "36px" }}
             className="mt-1 cursor-pointe text-primaryColor dark:text-white"
           />
         </div>
       </div>
       <div
-        className={`flex flex-col ${
-          collapsed ? "justify-center" : "justify-between"
-        } h-full`}
+        className={`flex flex-col ${collapsed ? "" : "justify-between"} h-full`}
       >
         <ul className="flex flex-col gap-4">
           {categories.map((category) => {
