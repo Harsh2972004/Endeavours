@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 import SideBar from "../components/SideBar";
 import TodoList from "../components/TodoList";
@@ -15,7 +15,7 @@ const Home = () => {
       className={`w-full h-screen flex transition-all font-bodyFont ${
         savedTheme === "dark"
           ? "bg-[#121321] text-white dark"
-          : "bg-gray-100 text-white"
+          : "bg-gray-200 text-white"
       }`}
     >
       <SideBar handleCategoryClick={handleCategoryClick} />

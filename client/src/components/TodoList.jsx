@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Modal from "./Modal";
 import ItemCard from "./ItemCard";
 import axios from "axios";
+import SearchIcon from "@mui/icons-material/Search";
 
 const TodoList = ({ selectedCategory }) => {
   const { list, dispatch } = useListItemContext();
@@ -75,10 +76,25 @@ const TodoList = ({ selectedCategory }) => {
 
   return (
     <div className=" border-l-4 border-black/30 h-[full] w-full p-6 relative overflow-y-auto scroll-smooth no-scrollbar">
-      <h1 className="font-bodyFont text-[30px] text-black dark:text-white border-b-2 border-black dark:border-white mb-9 pb-4 font-semibold">
-        {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}{" "}
-        Tasks
-      </h1>
+      <div className=" flex justify-between border-b-2 dark:border-white border-primaryColor mb-9">
+        <h1 className="font-bodyFont text-[30px] text-primaryColor dark:text-white pb-4 font-semibold">
+          {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}{" "}
+          Tasks
+        </h1>
+        <div className="dark:bg-white/30 bg-primaryColor h-10 rounded-full flex items-center px-4">
+          <input
+            type="text"
+            placeholder={`Search ${
+              selectedCategory.charAt(0).toUpperCase() +
+              selectedCategory.slice(1)
+            } Task`}
+            className="w-[600px] px-4 bg-transparent border-r-2 focus:outline-none text-white"
+          />
+          <button className="h-6 w-6 ml-4">
+            <SearchIcon style={{ fontSize: "24px" }} />
+          </button>
+        </div>
+      </div>
       <div
         className={
           list?.length === 0
@@ -88,7 +104,9 @@ const TodoList = ({ selectedCategory }) => {
       >
         {list?.length === 0 ? (
           <div>
-            <p className="text-[20px]">There is no tasks in this list</p>
+            <p className="text-[20px] text-primaryColor dark:text-white">
+              There is no tasks in this list
+            </p>
           </div>
         ) : (
           list?.map((l, i) => {

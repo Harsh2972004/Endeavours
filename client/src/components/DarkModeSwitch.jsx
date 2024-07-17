@@ -5,12 +5,12 @@ const DarkModeSwitch = () => {
 
   return (
     <div className="flex items-center justify-between mb-3">
-      <span className="text-black dark:text-white font-bodyFont">
+      <span className="text-primaryColor dark:text-white font-bodyFont font-semibold">
         {isDarkMode ? "Dark Mode" : "Light Mode"}
       </span>
       <label
         htmlFor="darkModeToggle"
-        className="w-12 h-5 bg-[#121321] dark:bg-white rounded-full relative cursor-pointer"
+        className="w-12 h-5 bg-primaryColor dark:bg-white rounded-full relative cursor-pointer"
       >
         <input
           id="darkModeToggle"

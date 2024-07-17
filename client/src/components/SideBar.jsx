@@ -24,7 +24,7 @@ const SideBar = ({ handleCategoryClick }) => {
         collapsed ? "w-[80px] justify-between" : "w-[350px]"
       } flex flex-col gap-10 items-center relative transition-all duration-500`}
     >
-      <div className="flex items-center justify-between w-full border-b-2 border-black dark:border-white">
+      <div className="flex items-center justify-between w-full border-b-2 border-primaryColor dark:border-white">
         <div
           className={`cursor-pointer text-center transition-all duration-100 ${
             collapsed ? " hidden" : ""
@@ -43,7 +43,7 @@ const SideBar = ({ handleCategoryClick }) => {
         <div onClick={toggleSideBar}>
           <MenuIcon
             fontSize="large"
-            className="mt-1 cursor-pointe text-black dark:text-white"
+            className="mt-1 cursor-pointe text-primaryColor dark:text-white"
           />
         </div>
       </div>
